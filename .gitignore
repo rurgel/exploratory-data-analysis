@@ -31,6 +31,9 @@ Temporary Items
 # Jupyter Notebook
 .ipynb_checkpoints
 
+# Testing Jupyter Notebooks
+test*.ipynb 
+
 # IPython
 profile_default/
 ipython_config.py
