@@ -1,7 +1,7 @@
 <body>
   <div>
     <img src="https://img.shields.io/github/languages/top/rurgel/exploratory-data-analysis"></img>
-    <img src="https://img.shields.io/github/pipenv/locked/python-version/rurgel/exploratory-data-analysis"></img>
+    <img src="https://img.shields.io/tokei/lines/github/rurgel/exploratory-data-analysis"></img>
     <img src="https://img.shields.io/github/license/rurgel/exploratory-data-analysis"></img>
     <img src="https://img.shields.io/github/commit-activity/m/rurgel/exploratory-data-analysis/portuguese"></img>
     <img src="https://img.shields.io/github/last-commit/rurgel/exploratory-data-analysis/portuguese"></img>
