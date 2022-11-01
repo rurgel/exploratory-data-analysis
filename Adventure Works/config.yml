@@ -1,0 +1,32 @@
+datafolder: AdventureWorks-oltp-install-script
+
+datatypes:
+  SalesOrderID: int
+  RevisionNumber: int
+  OrderDate: datetime64[D]
+  DueDate: datetime64[D]
+  ShipDate: datetime64[D]
+  Status: int
+  OnlineOrderFlag: bool
+  SalesOrderNumber: str
+  PurchaseOrderNumber: object
+  AccountNumber: str
+  CustomerID: int
+  SalesPersonID: Int64
+  TerritoryID: int
+  BillToAddressID: int
+  ShipToAddressID: int
+  ShipMethodID: int
+  CreditCardID: Int64
+  CreditCardApprovalCode: object
+  CurrencyRateID: Int64
+  SubTotal: float
+  TaxAmt: float
+  Freight: float
+  TotalDue: float
+  Comment: str
+  rowguid: str
+  ModifiedDate: datetime64[D]
+  ProductID: Int64
+  ProductSubcategoryID: Int64
+  ProductCategoryID: Int64
