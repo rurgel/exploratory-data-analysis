@@ -1,10 +1,12 @@
 import re
+from sys import displayhook
 import pandas as pd
 import matplotlib.pyplot as plt  # type: ignore
 import seaborn as sns  # type: ignore
 from pathlib import Path
 from typing import Optional
 from pandas.core.frame import DataFrame
+from config.core import config
 
 
 plt.style.use('dark_background')
@@ -23,6 +25,10 @@ def get_table(tabname: str, datapath: Path, sep: str = '\t') -> DataFrame:
                      encoding='ISO-8859-1',
                      header=None,
                      names=colnames)
+    
+    df = df.astype(
+    {key: value for key, value in config.datatypes.items()
+        if key in df.columns})
     return df
 
 
@@ -38,7 +44,8 @@ def summarize_dtypes(df: DataFrame) -> None:
                    .reset_index()
                    .rename(columns={'index': 'Tipo dos Dados'})
                    .to_string(index=False),
-                 1))
+                 1),
+          end='\n\n')
     return None
 
 
@@ -74,3 +81,24 @@ def plot_null(df: DataFrame, *,
     plt.tick_params(axis='x', which='major', labelsize=7)
     plt.tick_params(axis='y', which='major', labelsize=8)
     plt.show()
+
+
+def show_pandas(df: DataFrame, *,
+                cmap: str = 'Greens', col_format: str = '${0:,.2f}') -> None:
+    displayhook(df.style
+                .format_index("{:%Y}")
+                .format(col_format, thousands='.', decimal=',')
+                .background_gradient(cmap=cmap)
+                .set_table_styles([
+                    {'selector': 'th.col_heading',
+                     'props': 'font-size: 1.25em;'},
+                    {'selector': 'td',
+                     'props': 'text-align:center; font-weight:bold;'},
+                    {'selector': '.index_name',
+                     'props': 'font-style:italic; color:lightgrey; font-weight:normal;font-size:1.2em;'},
+                    {'selector': 'th',
+                     'props': 'background-color:#1e1f29; color:lightgrey;'},
+                    {'selector': 'th:not(.col_heading):not(.index_name)',
+                     'props': 'color:white;font-size:1.1em;'},
+                ], overwrite=False))
+    return None
