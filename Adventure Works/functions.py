@@ -9,10 +9,12 @@ from pandas.core.frame import DataFrame
 from config.core import config
 
 
-plt.style.use('dark_background')
+plt.style.use('seaborn-v0_8-colorblind')
 
 
-def get_table(tabname: str, datapath: Path, sep: str = '\t') -> DataFrame:
+def get_table(tabname: str, datapath: Path, sep: str = '\t', 
+              usecols: Optional[list] = None,
+              encoding: str = 'ISO-8859-1') -> DataFrame:
     with open(datapath/'instawdb.sql', 'r', encoding='UTF-16') as file:
         sql_header = file.read()
     s = re.search(fr'CREATE TABLE \[[^\[]*\][.]\[{tabname}\].*?GO',
@@ -22,7 +24,9 @@ def get_table(tabname: str, datapath: Path, sep: str = '\t') -> DataFrame:
     colnames = re.findall('^\s{4}\[(.*?)\]', s.group(0), flags=re.MULTILINE)
     df = pd.read_csv(datapath / f'{tabname}.csv',
                      sep=sep,
-                     encoding='ISO-8859-1',
+                     index_col=False,
+                     usecols=usecols,
+                     encoding=encoding,
                      header=None,
                      names=colnames)
     
@@ -95,10 +99,8 @@ def show_pandas(df: DataFrame, *,
                     {'selector': 'td',
                      'props': 'text-align:center; font-weight:bold;'},
                     {'selector': '.index_name',
-                     'props': 'font-style:italic; color:lightgrey; font-weight:normal;font-size:1.2em;'},
-                    {'selector': 'th',
-                     'props': 'background-color:#1e1f29; color:lightgrey;'},
+                     'props': 'font-style:italic; font-weight:normal;font-size:1.2em;'},
                     {'selector': 'th:not(.col_heading):not(.index_name)',
-                     'props': 'color:white;font-size:1.1em;'},
+                     'props': 'color:dimgray;font-size:1.1em;'},
                 ], overwrite=False))
     return None
